@@ -142,8 +142,8 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-RAZOR_KEY_ID = 'rzp_test_AcwL6r2CUuDCAr'
-RAZOR_KEY_SECRET = 'c5iRfOoH9I56IAXXJBZjh2A1'
+RAZOR_KEY_ID = 'enter razorpay api key'
+RAZOR_KEY_SECRET = 'enter razorpay secret key'
 
 
 
