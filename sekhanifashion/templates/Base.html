@@ -1,0 +1,31 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Kutchi Handicraft Items, Sekhani fashion, Purse,Kurti,Choli and much more</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+        <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+        <link rel="stylesheet" href="{% static 'assets/css/utils.css' %}">
+        
+    </head>
+    <body>
+
+        
+    <!-- header start here -->
+    {% include 'include/header.html' %}
+    <!-- ends here -->
+    {% block content %}
+        
+        {% endblock %}
+
+    <!-- footer starts here -->
+    {% include 'include/footer.html' %}
+    <!-- ends here -->
+    
+     
+        <script src="{% static 'assets/javascript/Sekhanifashion.js' %}"></script>
+
+    </body>
+</html>

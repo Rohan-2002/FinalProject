@@ -1,0 +1,138 @@
+{% extends 'Base.html' %}
+{% load static %}
+{% block content %}
+
+<h4 class="filadd">Fill Shiping Address:</h4>
+
+<div class="address-container flex">
+    <div class="addmain-cnt flex">
+    <div class="fleft">
+        <form method="post" action="{% url 'checkout' %}">
+            {% csrf_token %}
+        <label for="f-name">First Name:</label><br>
+        <input type="text" name="f-name" id="f-name"><br>
+
+        <label for="addline-1">Address Line 1:</label><br>
+        <input type="text" name="addline-1" id="addline-1"><br>
+
+        <label for="country-state">State:</label><br>
+        <select id="country-state" name="country-state">
+        <option value="">Select state</option>
+        <option value="AN">Andaman and Nicobar Islands</option>
+        <option value="AP">Andhra Pradesh</option>
+        <option value="AR">Arunachal Pradesh</option>
+        <option value="AS">Assam</option>
+        <option value="BR">Bihar</option>
+        <option value="CH">Chandigarh</option>
+        <option value="CT">Chhattisgarh</option>
+        <option value="DN">Dadra and Nagar Haveli</option>
+        <option value="DD">Daman and Diu</option>
+        <option value="DL">Delhi</option>
+        <option value="GA">Goa</option>
+        <option value="GJ">Gujarat</option>
+        <option value="HR">Haryana</option>
+        <option value="HP">Himachal Pradesh</option>
+        <option value="JK">Jammu and Kashmir</option>
+        <option value="JH">Jharkhand</option>
+        <option value="KA">Karnataka</option>
+        <option value="KL">Kerala</option>
+        <option value="LA">Ladakh</option>
+        <option value="LD">Lakshadweep</option>
+        <option value="MP">Madhya Pradesh</option>
+        <option value="MH">Maharashtra</option>
+        <option value="MN">Manipur</option>
+        <option value="ML">Meghalaya</option>
+        <option value="MZ">Mizoram</option>
+        <option value="NL">Nagaland</option>
+        <option value="OR">Odisha</option>
+        <option value="PY">Puducherry</option>
+        <option value="PB">Punjab</option>
+        <option value="RJ">Rajasthan</option>
+        <option value="SK">Sikkim</option>
+        <option value="TN">Tamil Nadu</option>
+        <option value="TG">Telangana</option>
+        <option value="TR">Tripura</option>
+        <option value="UP">Uttar Pradesh</option>
+        <option value="UT">Uttarakhand</option>
+        <option value="WB">West Bengal</option>
+        </select><br>
+
+        <label for="landmark">Landmark:</label><br>
+        <input type="text" name="landmark" id="landmark"><br>
+
+        <label for="p-code">PIN code:</label><br>
+        <input type="text" name="p-code" id="p-code"><br>
+    </div>
+
+    <div class="fright">
+        <label for="l-name">Last Name:</label><br>
+        <input type="text" name="l-name" id="l-name"><br>
+
+        <label for="addline-2">Address Line 2:</label><br>
+        <input type="text" name="addline-2" id="addline-2"><br>
+
+        <label for="city">City:</label><br>
+        <input type="text" name="city" id="city"><br>
+
+        <label for="m-number">Mobile Number:</label><br>
+        <input type="number" name="m-number" id="m-number"><br>
+
+        
+        <button class="sveadd-cont" type="submit">Save</button>
+       </form>
+    </div>
+    
+    </div>
+    <div class="fleft">
+        {% for cart in cart_item %}
+        <div class="o-deteails flex">
+            <img src="{{cart.product.product_detail_set.first.product_image_1.url}}" alt="" class="opimg">
+            <div class="onimg">{{cart.quantity}}</div>
+            <div class="odetail-in">
+                <h3>{{cart.product.product_name}}</h3>
+                <!-- <h4>Color: Gray</h4> -->
+                <h4>Size: XL</h4>
+            </div>
+        </div>
+        {% endfor %}
+        <div class="o-detailline"></div>
+        <div class="sub-details flex">
+            <h4>Subtotal:</h4>
+            <p>&#8377; {{totalamount}}/-</p>
+        </div>
+    </div>
+</div>
+
+    <div class="saved-add">
+        <h4>Your Saved Address:</h4>
+        {% for add in address_show %}
+        <div class="breck-lineadd"></div>
+        <div class="cont-add flex">
+            
+
+        <div class="cont-addleft">
+            
+        <div class="add-name">{{add.first_name}} {{add.last_name}}</div>
+        <div class="add-svedd">
+            {{add.address_line_1}} {{add.address_line_2}}, {{add.landmark}}, {{add.city}}, {{add.pin_code}}
+        </div>
+        </div>
+        <div class="add-btnuse">
+            
+            <form method="post" action="/confirmation/">
+                {% csrf_token %}
+           <input type="hidden" name="address_id" value="{{add.id}}">
+           <button type="submit">Ship Here</button>
+           </form>
+        </div>
+        </div>
+        <div class="breck-lineadd"></div>
+        {% endfor %}
+
+
+       
+
+    </div>
+
+
+{% endblock %}

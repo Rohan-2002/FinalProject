@@ -1,0 +1,119 @@
+{% extends 'Base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<div class="productview flex">
+	<div class="img-container flex">
+		<div class="allimg">
+			{% for image in product.product_detail_set.all %}
+			<img onclick="viewPic(this)" src="{{image.product_image_1.url}}">
+			<img onclick="viewPic(this)" src="{{image.product_image_2.url}}">
+			<img onclick="viewPic(this)" src="{{image.product_image_3.url}}">
+			<img onclick="viewPic(this)" src="{{image.product_image_2.url}}">
+			<img onclick="viewPic(this)" src="{{image.product_image_1.url}}">
+			{% endfor %}
+		</div>
+		{% for image in product.product_detail_set.all %}
+		<img id="View" src="{{image.product_image_1.url}}" >
+		{% endfor %}
+	</div>
+	<div class="textcontainer">
+		<h2>{{product.product_name}}</h2>
+		<ul class="rating-stars">
+
+			<li class="star"><i class="fa fa-star"></i></li>
+			<li class="star"><i class="fa fa-star"></i></li>
+			<li class="star"><i class="fa fa-star"></i></li>
+			<li class="star"><i class="fa fa-star"></i></li>
+			<li class="star"><i class="fa fa-star"></i></li>
+
+		</ul>
+		
+		<p class="description">{{product.product_description | safe }}</p>
+		<label for="quantity" class="pro-value">QUANTITY: </label>
+		<button class="minus" onclick="decrement()">&#8722;</button>
+		<input type="number" class="num" id="qty" min="01" max="07" value="1">
+		<button class="plus" onclick="increment()">&#43;</button><br>
+
+		<label class="pro-value" name="pro-size">SIZE: </label>
+		<select name="pro-size" id="{{size.prod_size__product_size}}" class="pro-sizee">
+			{% for size in sizes %}
+			<option value="{{size.prod_size__product_size}}">{{size.prod_size__product_size}}</option>
+			{% endfor %}
+		</select>
+
+		<img src="" alt="">
+		<p class="price"><img src="{% static 'assets/images/icons/indruppe.png' %}" alt="" class="P-tag">{{product.product_price}}/-</p>
+
+		<button type="submit" data-product-id="{{product.product_id}}" class="buynow-btn" id="buynowbtn" onclick="openPopup()">Buy Now</button>
+		</form>
+	</div>
+	<div class="popup" id="popup">
+		{% if user.is_authenticated %}
+		<h3 id="popup-message"></h3>
+		<button onclick="closePopup()">Continue Shopping</button>
+		<a href="{% url 'cart' %}"><button onclick="closePopup()">Go to Cart</button></a>
+		{% else %}
+		<h3>You Have to login or Signup for That!</h3>
+		<a href="{% url 'login' %}"><button onclick="closePopup()">Login</button></a>
+		<a href="{% url 'signup' %}"><button onclick="closePopup()">Signup</button></a>
+		{% endif %}
+	</div>
+</div>
+
+
+
+
+<script>
+	let popup = document.getElementById("popup"); 
+
+function openPopup(){
+ popup.classList.add("open-popup");
+ setTimeout(closePopup, 5000);
+}
+
+function closePopup(){
+  popup.classList.remove("open-popup");
+}
+
+
+
+function increment() {
+      document.getElementById('qty').stepUp();
+   }
+function decrement() {
+      document.getElementById('qty').stepDown();
+   }
+
+</script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+  $('#buynowbtn').click(function() {
+    var product_id = $(this).data('product-id');
+
+    $.ajax({
+      url: '/add_to_cart/',
+      type: 'get',
+      data: {'prod_id': product_id},
+      success: function(response) {
+        // Handle the response from the server
+        const popupMessage = document.getElementById('popup-message');
+        popupMessage.innerHTML = response.message;
+        openPopup();
+      },
+    //   error: function(xhr) {
+    //     // Handle errors
+    //     alert('Error adding product to cart');
+    //   }
+    });
+  });
+});
+</script>
+
+
+
+{% endblock %}

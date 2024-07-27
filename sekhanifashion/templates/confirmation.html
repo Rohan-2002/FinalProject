@@ -1,0 +1,98 @@
+{% extends 'Base.html' %}
+{% load static %}
+{% block content %}
+
+<h4 class="cnf-det">Confirm Details:</h4>
+
+
+<div class="confirmation-container lex">
+    <div class="cnf-main flex">
+
+        <div class="fright">   
+            {% for addresses in address %}         
+            <h2>{{addresses.first_name}} {{addresses.last_name}}</h2>
+            <p>{{addresses.address_line_1}} {{addresses.address_line_2}}, {{addresses.landmark}}, {{addresses.city}}, {{addresses.pin_code}}</p>
+           <a href="{% url 'checkout' %}"><button class="change">Change Your Shipping Address</button></a>
+            <div class="breck-lineadd"></div>
+            {% endfor %}
+            <div class="sele-method flex">
+                <label for="p-method">Select Payment Method: </label>
+                <img src="/static/assets/images/icons/razorpay.png" alt="">
+                <input type="radio" name="p-method" value="razorpay" checked="true">
+            </div>                
+
+            <button id="rzp-button1" class="p-payement">Proceed To Payment</button>
+
+        </div>
+
+    <div class="fleft">
+        {% for cart in cart_item %}
+        <div class="o-deteails flex">
+            <img src="{{cart.product.product_detail_set.first.product_image_1.url}}" alt="" class="opimg">
+            <div class="onimg">{{cart.quantity}}</div>
+            <div class="odetail-in">
+                <h3>{{cart.product.product_name}}</h3>
+                <!-- <h4>Color: Gray</h4> -->
+                <h4>Size: XL</h4>
+            </div>
+        </div>
+        {% endfor %}
+        <div class="o-detailline"></div>
+        <div class="sub-details flex">
+            <h4>Subtotal:</h4>
+            <p>&#8377; {{totalamount}}/-</p>
+        </div>
+
+    </div>
+    </div>
+
+</div>
+
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+var options = {
+    "key": "rzp_test_AcwL6r2CUuDCAr", // Enter the Key ID generated from the Dashboard
+    "amount": "{{amount}}", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+    "currency": "INR",
+    "name": "Sekhani Fashion",
+    "description": "Purchase Product",
+    "image": "{% static 'assets/images/icons/Logo.png' %}",
+    "order_id": "{{order_id}}", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+    "handler": function (response){
+        console.log("success")
+        var data = document.getElementsByClassName("confirmation-container");
+        // alert(response.razorpay_payment_id);
+        // alert(response.razorpay_order_id);
+        // alert(response.razorpay_signature)
+        // window.location.href= 'http://localhost:8000/confirmation?order_id=${response.razorpay_order_id}& payment_id=${response.rasorpay_payment_id}'
+    },
+    "prefill": {
+        "name": "{{user.first_name}}",
+        "email": "{{user.email}}",
+        "contact": "9000090000"
+    },
+    "notes": {
+        "address": "Razorpay Corporate Office"
+    },
+    "theme": {
+        "color": "#7b5816"
+    }
+};
+var rzp1 = new Razorpay(options);
+rzp1.on('payment.failed', function (response){
+        alert(response.error.code);
+        alert(response.error.description);
+        alert(response.error.source);
+        alert(response.error.step);
+        alert(response.error.reason);
+        alert(response.error.metadata.order_id);
+        alert(response.error.metadata.payment_id);
+});
+document.getElementById('rzp-button1').onclick = function(e){
+    rzp1.open();
+    e.preventDefault();
+}
+</script>
+
+{% endblock %}

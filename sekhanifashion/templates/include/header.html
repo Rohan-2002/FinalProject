@@ -1,0 +1,80 @@
+<!--Header Start-->
+{% load static %}
+<header>
+    <nav>
+        
+        <div class="Top-container flex">
+
+            <div class="hLeft flex"> 
+               <a href="{% url 'home' %}"><img src="{% static 'assets/images/icons/Logo.png' %}" class="logo"></a>
+            </div>
+
+            <div class="hRight">
+                <ul class="cntc flex">
+                    <img src="{% static 'assets/images/icons/phone-call.png' %}" alt="">
+                     <li>+91 9913200302</li>
+                     <img src="{% static 'assets/images/icons/email.png' %}" alt="">
+                     <li>sekhanifashion@gmail.com</li>
+                </ul>
+                <div class="rightbottom flex">    
+                    <input type="search" class="sBar" name="keyword" placeholder="Search"> 
+                    <button class="Searchicon"></button>
+                    {% if user.is_authenticated %}  
+                    <a href="{% url 'cart' %}"><img src="{% static 'assets/images/icons/carttpng.png' %}"></a>
+                    <a href="{% url 'myorder' %}"><img src="{% static 'assets/images/icons/location.png' %}"></a>
+                    {% endif %}
+                    <button onclick="myFunction()" class="dropbtn"></button>
+
+                    <div id="myDropdown" class="dropdown-content">
+
+                        {% if user.is_authenticated %}
+
+                        <a href="{% url 'login' %}">Hello, {{user.first_name}}</a>
+                        <hr class="solid">
+                        <a href="{% url 'changepassword' %}">Change Password</a>
+                        <hr class="solid">
+                        <a href="{% url 'logout' %}">Logout</a>
+                        <hr class="solid">
+                        {% else %}
+                        <a href="{% url 'login' %}">Login</a>
+                        <hr class="solid">
+                        <a href="{% url 'signup' %}">Signup</a>
+                        <hr class="solid">
+                        {% endif %}
+                      </div>
+                   
+                </div>
+            </div>
+        </div>
+        
+        <div class="bottom-container flex">
+            <ul class="flex">
+                <div class="cat-dropdown flex">
+                <li>Apparel</li>
+                    <div class="drop-content">
+                        {% for category in cat %}
+
+                         <div class="content">
+                            <h4>{{category.category_name}}</h4>
+                            <hr class="line">
+                           
+                            <a href="#">{{sub_cat.sub_category_name}}</a>
+                           
+                         </div>
+                         {% endfor %}
+
+                    </div>
+                </div>
+                
+                <li>Accessories</li>
+                <li>Home</li>
+                <li>Artisans</li>
+                <li><a href="{% url 'contactus' %}">Contact us</a></li>
+            </ul>
+        </div>
+
+    </nav>
+        <img class="Border" src="{% static 'assets/images/icons/Border-2.png' %}">
+</header>
+
+<!--Headder End-->

@@ -1,0 +1,30 @@
+{% extends 'Base.html' %}
+{% load static %}
+{% block content %}
+{% load socialaccount %}
+{% providers_media_js %}
+<div class="login-container">
+<h1> Login </h1>
+<div class="withlog">
+    <a href="{% provider_login_url 'facebook' method='oauth2' %}"><img src="{% static 'assets/images/icons/Facebook_logo_PNG12.png' %}" alt=""></a>
+    <a href="{% provider_login_url 'google' method='oauth2' %}"><img src="{% static 'assets/images/icons/googlelogo.png' %}" alt=""></a>
+    <p>- OR -<p>
+</div>
+<div class="input-lg">
+<form method="post" action="{% url 'login' %}" class="form-cntent">
+    {% csrf_token %}
+    <input type="text" name="username" placeholder="Enter Username" required><br>
+    <input type="password" name="password" placeholder="Enter Password" required><br><br>
+    <button type="submit"> Login </button>
+</form>
+{% for msg in messages %}
+
+<p>{{msg}}<p>
+
+{% endfor %}
+<div class="crAc">
+   Don't have account?<a href="{% url 'signup' %}">SIGN UP</a>
+</div>
+</div>
+</div>
+{% endblock %}

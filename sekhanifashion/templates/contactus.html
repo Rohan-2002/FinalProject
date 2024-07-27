@@ -1,0 +1,50 @@
+{% extends 'Base.html' %}
+
+{% load static %}
+{% block content %}
+
+<h1 class="cus">Contact Us</h1>
+
+<div class="contactus">
+    <div class="via flex">
+        <div class="viacall">
+
+            <img src="{% static 'assets/images/icons/viacall.png' %}" alt="">
+            <div class="main">
+            <h4>Mobile Numbers</h4>
+            <a>+91 99132 00302,  </a>
+            <a>+91 97669 16113</a><br>
+            </div>
+            <div class="indetails">
+            <a>Sending Text, and Calling from this Details</a>
+            </div>
+
+        </div>
+        <div class="viaoffice">
+
+            <img src="{% static 'assets/images/icons/mainoffice.png' %}" alt="">
+            <div class="main">
+            <h4>Main Office Address</h4>
+            <a>Old Ravalwadi, Bhuj-kutch, 370001</a><br>
+            </div>
+            <div class="indetails">
+            <a>You Also visit This Adress of main offices</a>
+            </div>
+
+        </div>
+        <div class="viaemail">
+
+            <img src="{% static 'assets/images/icons/viaemail.png' %}" alt="">
+            <div class="main">
+            <h4>Email</h4>
+            <a>sekhanifashion@gmail.com</a><br>
+            </div>
+            <div class="indetails">
+            <a>Send Mail from This Email</a>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}

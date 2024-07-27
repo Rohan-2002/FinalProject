@@ -1,0 +1,34 @@
+<!--Footer Start-->
+{% load static %}
+<footer>
+    <div class="foot-container">
+        <hr>
+        <div class="fc-top flex">
+
+            <div class="topleft">
+                <ul class="flex">
+                    <li>Privacy & Terms of Use</li>
+                    <div class="vl"></div>
+                    <li>Shipping, Cancelation & Returns</li>
+                    <div class="vl"></div>
+                    <li>Return Order</li>
+                    <div class="vl"></div>
+                    <li><a href="{% url 'contactus' %}">Contact Us</a></li>
+                </ul>
+            </div>
+
+            <div class="topright flex">
+                <a href="https://facebook.com/sekhanifashion/" target="_blank"> <img src="{% static 'assets/images/icons/Facebook_logo_PNG12.png' %}" alt=""></a>
+                <a href="https://instagram.com/sekhanifashion/" target="_blank"> <img src="{% static 'assets/images/icons/insta.png' %}" alt=""></a>
+            </div>
+
+        </div>
+
+        <div class="footmid flex">
+            
+            <img src="{% static 'assets/images/icons/location (1).png' %}" alt="">
+            <a href="https://goo.gl/maps/Qm15eQwN93ztPsz8A" target="_blank">Sekhani Fashion</a> , Old RavalWadi, Bhuj-Kutch 370001
+        </div>
+
+    </div>
+</footer>
